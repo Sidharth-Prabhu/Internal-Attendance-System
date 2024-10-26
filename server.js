@@ -16,6 +16,11 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
 
+// Default route to avoid "Cannot GET /" error
+app.get("/", (req, res) => {
+    res.send("Welcome to the Attendance API! Use /attendance to submit attendance and /absent to mark absence.");
+});
+
 // API endpoint to handle attendance submission
 app.post("/attendance", (req, res) => {
     const { name, image } = req.body;
@@ -94,7 +99,7 @@ app.post("/absent", (req, res) => {
         });
 });
 
-
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log("Server is online da parama...");
 });
