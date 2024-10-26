@@ -9,11 +9,12 @@ const app = express();
 const PORT = 3000;
 
 // Set SendGrid API key
-sgMail.setApiKey("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");
+require("dotenv").config();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
 
 // API endpoint to handle attendance submission
 app.post("/attendance", (req, res) => {
